@@ -1,4 +1,4 @@
-# Homebridge-samsungSmartTv
+# homebridge-samsung-tv
 
 [Homebridge](https://github.com/nfarina/homebridge) plugin for Samsung TVs (2016 and newer) running Tizen Operating systems (Smart Hub).
 
