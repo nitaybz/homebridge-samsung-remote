@@ -6,7 +6,7 @@ var SamsungTvRemote = require('samsung-tv-remote');
 module.exports = function(homebridge) {
     Service = homebridge.hap.Service;
     Characteristic = homebridge.hap.Characteristic;
-    homebridge.registerAccessory("homebridge-samsung-tv", "SamsungTV", SamsungTV);
+    homebridge.registerAccessory("homebridge-samsung-remote", "SamsungTV", SamsungTV);
 };
 
 function SamsungTV(log, config) {

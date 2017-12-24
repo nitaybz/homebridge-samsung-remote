@@ -1,12 +1,12 @@
-# homebridge-samsung-tv
+# homebridge-samsung-remote
 
 [Homebridge](https://github.com/nfarina/homebridge) plugin for Samsung TVs (2016 and newer) running Tizen Operating systems (Smart Hub).
 
 This plugin allows you to control your Samsung TV with HomeKit and Siri.
 
 ## Installation
-1. Install homebridge using: npm install -g --unsafe-perm homebridge
-2. Install this plugin using: npm install -g homebridge-samsung-tv
+1. Install homebridge using: `sudo npm install -g --unsafe-perm homebridge`
+2. Install this plugin using: `sudo npm install -g homebridge-samsung-remote`
 3. Update your configuration file. See `config-sample.json`.
 
 ### Config Sample:

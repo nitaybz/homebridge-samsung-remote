@@ -1,5 +1,5 @@
 {
-  "name": "homebridge-samsung-tv",
+  "name": "homebridge-samsung-remote",
   "version": "0.0.1",
   "description": "Homebridge plugin for Samsung TVs 2016 and newer",
   "author": "nitaybz",
@@ -18,10 +18,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/nitaybz/homebridge-samsung-tv.git"
+    "url": "git://github.com/nitaybz/homebridge-samsung-remote.git"
   },
   "bugs": {
-    "url": "http://github.com/nitaybz/homebridge-samsung-tv/issues"
+    "url": "http://github.com/nitaybz/homebridge-samsung-remote/issues"
   },
   "engines": {
     "node": ">=0.12.0",
