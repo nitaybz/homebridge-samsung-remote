@@ -25,12 +25,9 @@ function SamsungTV(log, config) {
 
     if (!config.ip) throw new Error("TV IP address is required");
     if (!config.mac) throw new Error("TV MAC address is required");
-
-    this.app_name_base64 = (new Buffer(this.app_name)).toString('base64');
     
     this.TV = new SamsungTvRemote({
-        ip: this.ip,
-        appString: this.app_name_base64
+        ip: this.ip
     });
 
     
@@ -101,8 +98,8 @@ SamsungTV.prototype._getOn = function(callback) {
         accessory.log('Powering OFF is in progress, Reporting OFF');
         callback(null, false);
     } else {
-        accessory.TV.isAlive(function(err) {
-            if (err) {
+        accessory.TV.isTvAlive(function(success) {
+            if (!success) {
                 accessory.log('TV is OFF');
                 callback(null, false);
             } else {
@@ -115,14 +112,14 @@ SamsungTV.prototype._getOn = function(callback) {
 
 SamsungTV.prototype._setOn = function(on, callback) {
     var accessory = this;
-    accessory.log('Setting TV to ' + on);
+    accessory.log('Setting TV to ' + (on ? "ON" : "OFF"));
     if (on) {
         if(accessory.timer_off !== null) {
-            clearTimeout(accessory.timer_off);
+            clearInterval(accessory.timer_off);
             accessory.timer_off = null
             accessory.log('Powering OFF is in progress, Turning ON via \'KEY_POWER\' command');
-            accessory.TV.isAlive(function(err) {
-                if (err) {
+            accessory.TV.isTvAlive(function(success) {
+                if (!success) {
                     accessory.log('Can\'t reach TV, Trying via \'Wake On Lan\'');
                     wol.wake(accessory.mac, function(err) {
                         if (err) {
@@ -139,8 +136,12 @@ SamsungTV.prototype._setOn = function(on, callback) {
                 }
             });
         } else {
-            accessory.TV.isAlive(function(err) {
-                if (err) {
+            var alive = false
+            accessory.TV.isTvAlive(function(success) {
+                if (success) alive = true
+            });
+            setTimeout(function(){
+                if (!alive) {
                     wol.wake(accessory.mac, function(err) {
                         if (err) {
                             callback(new Error(err));
@@ -153,18 +154,27 @@ SamsungTV.prototype._setOn = function(on, callback) {
                     accessory.log('TV is already ON');
                     callback();
                 }
-            });
+            }, 1000)
         }
     } else {
         if(accessory.timer_off !== null) {
             accessory.log('Powering OFF is already in progress');
+            callback();
         } else {
-            accessory.TV.isAlive(function(err) {
-                if (err) {
+            accessory.TV.isTvAlive(function(success) {
+                if (!success) {
                     accessory.log('TV is already OFF');
                     callback();
                 } else {
                     accessory.TV.sendKey('KEY_POWER')
+                    accessory.timer_off = setInterval(function(){
+                        accessory.TV.isTvAlive(function(success) {
+                            if (!success) {
+                                clearInterval(accessory.timer_off)
+                                accessory.timer_off = null;
+                            }
+                        })
+                    },3000)
                     accessory.log('TV powered OFF');
                     callback();
                 }
@@ -185,8 +195,8 @@ SamsungTV.prototype._setMute = function(mute, callback) {
     var accessory = this;
 
     accessory.log('Sending mute command to TV');
-    accessory.TV.isAlive(function(err) {
-        if (err) {
+    accessory.TV.isTvAlive(function(success) {
+        if (!success) {
             accessory.log('TV is OFF');
             callback();
         } else {
@@ -213,8 +223,8 @@ SamsungTV.prototype._setChannel = function(mute, callback) {
     var accessory = this;
     var channel = accessory.channel.toString()
     accessory.log('Setting Channel ' + channel + ' on TV');
-    accessory.TV.isAlive(function(err) {
-        if (err) {
+    accessory.TV.isTvAlive(function(success) {
+        if (!success) {
             accessory.log('TV is OFF');
             callback();
         } else {
@@ -224,7 +234,6 @@ SamsungTV.prototype._setChannel = function(mute, callback) {
                 var intervalCommands = setInterval(function(){
                     if (i < channel.length){
                         accessory.TV.sendKey('KEY_' + channel.charAt(i))
-                        callback();
                         i++
                     } else {
                         clearInterval(intervalCommands)
@@ -232,8 +241,8 @@ SamsungTV.prototype._setChannel = function(mute, callback) {
                         accessory.log('Channel' + channel + ' is set');
                     }
                 }, 1000)
-            },3000)
-            
+            },1500)
+            callback();
         }
     });
     setTimeout(function(){
@@ -253,8 +262,8 @@ SamsungTV.prototype._setCustom = function(mute, callback) {
     var accessory = this;
 
     accessory.log('Sending ' + accessory.command + ' command to TV');
-    accessory.TV.isAlive(function(err) {
-        if (err) {
+    accessory.TV.isTvAlive(function(success) {
+        if (!success) {
             accessory.log('TV is OFF');
             callback();
         } else {
