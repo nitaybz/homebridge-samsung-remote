@@ -1,0 +1,43 @@
+{
+	"bridge": {
+		"name": "Homebridge",
+		"username": "CD:21:3D:E3:CE:38",
+		"port": 51826,
+		"pin": "031-45-154"
+	},
+
+	"description": "config sample",
+
+	"accessories": [
+		{
+            "accessory": "SamsungTV",
+            "name": "Living Room TV",
+            "ip": "10.0.0.0",
+            "mac": "12:34:45:AB:CD:EF",
+            "type": "power"
+        },
+        {
+            "accessory": "SamsungTV",
+            "name": "Mute TV",
+            "ip": "10.0.0.0",
+            "mac": "12:34:45:AB:CD:EF",
+            "type": "mute"
+        },
+        {
+            "accessory": "SamsungTV",
+            "name": "Channel 13",
+            "ip": "10.0.0.0",
+            "mac": "12:34:45:AB:CD:EF",
+            "type": "channel",
+            "channel": "13"
+        },
+        {
+            "accessory": "SamsungTV",
+            "name": "Change HDMI",
+            "ip": "10.0.0.0",
+            "mac": "12:34:45:AB:CD:EF",
+            "type": "custom",
+            "command": "KEY_HDMI"
+        }
+	]
+}
