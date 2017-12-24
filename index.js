@@ -98,15 +98,19 @@ SamsungTV.prototype._getOn = function(callback) {
         accessory.log('Powering OFF is in progress, Reporting OFF');
         callback(null, false);
     } else {
+        var alive = false
         accessory.TV.isTvAlive(function(success) {
-            if (!success) {
+            if (success) alive = true
+        });
+        setTimeout(function(){
+            if (!alive) {
                 accessory.log('TV is OFF');
                 callback(null, false);
             } else {
                 accessory.log('TV is ON');
                 callback(null, true);
             }
-        });
+        }, 2000)
     }
 };
 
