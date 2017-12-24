@@ -65,6 +65,8 @@ This plugin allows you to control your Samsung TV with HomeKit and Siri.
 
 3. Don't expect all "custom" commands to work with your TV. In fact, most of them are not working for me, but I found some of them are very usefull. I guess it's best for each of you to test some commands with your own TV to see what works.
 
+4. The Channel type was done according to my own TV model (KU7000) - send "Channel Up" command to switch to TV, channel numbers, and "Enter" command (3 digits max). The commands are sent one after the other with a reasonable delay, if you're experiencing any mailfunctions I would suggest to start with playing with the custom accessory and see what's working for you, than you can open an issue with the problem and the way you think your tv should act (if you got it from testing the custom switch)
+
 ## Commands List
 ```
 KEY_MENU
