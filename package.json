@@ -1,6 +1,6 @@
 {
   "name": "homebridge-samsung-remote",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Homebridge plugin for Samsung TVs 2016 and newer",
   "author": "nitaybz",
   "dependencies": {
