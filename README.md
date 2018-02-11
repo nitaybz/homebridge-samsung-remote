@@ -51,6 +51,16 @@ _________________________________________
         "mac": "12:34:45:AB:CD:EF",
         "type": "custom",
         "command": "KEY_HDMI"
+    },
+    {
+        "accessory": "SamsungTV",
+        "name": "Volume Up",
+        "ip": "10.0.0.0",
+        "mac": "12:34:45:AB:CD:EF",
+        "type": "custom",
+        "command": "KEY_VOLUP",
+        "repeat": 5,
+        "delay": 500
     }
 ]
 ```
@@ -63,8 +73,10 @@ _________________________________________
 | `ip`                | the IP address of your Samsung TV                              |     ✓    |      -    |
 | `mac`               | the mac address of your Samsung TV (Required for wake on lan)  |     ✓    |      -    |
 | `type`              | type of accessory - power / mute / channel / custom            |          |  "power"  |
-| `channel`           | channel on TV you want to switch to (only 1 channel per switch)| only for type "channel" |      -    |
-| `command`           | custom command to send to TV (List of commands at the bottom)  | only for type "custom"   |      -    |
+| `channel`           | channel on TV you want to switch to (only 1 channel per switch)| only for type "channel" |    -    |
+| `command`           | custom command to send to TV (List of commands at the bottom)  | only for type "custom"  |    -    |
+| `repeat`            | number of times to repeat the "custom" command (only for custom)|          |      1    |
+| `delay`             | delay between "custom" commands repeat (im miliseconds)         |          |     500   |
 
 
 ## Important Notes
