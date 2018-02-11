@@ -20,6 +20,8 @@ function SamsungTV(log, config) {
     this.app_name = config["app_name"] || "homebridge";
     this.command = config["command"];
     this.channel = config["channel"];
+    this.repeat = config["repeat"] || 1;
+    this.delay = config["delay"] || 500;
 
 
 
@@ -223,7 +225,7 @@ SamsungTV.prototype._getChannel = function(callback) {
     callback(null, false);
   };
   
-SamsungTV.prototype._setChannel = function(mute, callback) {
+SamsungTV.prototype._setChannel = function(state, callback) {
     var accessory = this;
     var channel = accessory.channel.toString()
     accessory.log('Setting Channel ' + channel + ' on TV');
@@ -262,18 +264,28 @@ SamsungTV.prototype._getCustom = function(callback) {
     callback(null, false);
   };
   
-SamsungTV.prototype._setCustom = function(mute, callback) {
+SamsungTV.prototype._setCustom = function(state, callback) {
     var accessory = this;
 
     accessory.log('Sending ' + accessory.command + ' command to TV');
     accessory.TV.isTvAlive(function(success) {
         if (!success) {
             accessory.log('TV is OFF');
+            
             callback();
         } else {
             accessory.TV.sendKey(accessory.command)
             accessory.log(accessory.command + ' command sent');
             callback();
+            var counter = 1;
+            var repeatSend = setInterval(function(){
+                if (counter < accessory.repeat){
+                    accessory.TV.sendKey(accessory.command)
+                    counter++
+                } else {
+                    clearInterval(repeatSend)
+                }
+            }, accessory.delay)
         }
     });
     setTimeout(function(){
