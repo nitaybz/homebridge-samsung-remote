@@ -38,6 +38,16 @@
             "mac": "12:34:45:AB:CD:EF",
             "type": "custom",
             "command": "KEY_HDMI"
+        },
+        {
+            "accessory": "SamsungTV",
+            "name": "Volume Up",
+            "ip": "10.0.0.0",
+            "mac": "12:34:45:AB:CD:EF",
+            "type": "custom",
+            "command": "KEY_VOLUP",
+	    "repeat": 5,
+	    "delay": 500
         }
 	]
 }
