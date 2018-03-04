@@ -121,7 +121,7 @@ SamsungTV.prototype._setOn = function(on, callback) {
     accessory.log('Setting TV to ' + (on ? "ON" : "OFF"));
     if (on) {
         if(accessory.timer_off !== null) {
-            clearInterval(accessory.timer_off);
+            clearTimeout(accessory.timer_off);
             accessory.timer_off = null
             accessory.log('Powering OFF is in progress, Turning ON via \'KEY_POWER\' command');
             accessory.TV.isTvAlive(function(success) {
@@ -173,13 +173,8 @@ SamsungTV.prototype._setOn = function(on, callback) {
                     callback();
                 } else {
                     accessory.TV.sendKey('KEY_POWER')
-                    accessory.timer_off = setInterval(function(){
-                        accessory.TV.isTvAlive(function(success) {
-                            if (!success) {
-                                clearInterval(accessory.timer_off)
-                                accessory.timer_off = null;
-                            }
-                        })
+                    accessory.timer_off = setTimeout(function(){
+                        accessory.timer_off = null;
                     },3000)
                     accessory.log('TV powered OFF');
                     callback();
