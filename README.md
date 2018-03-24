@@ -5,7 +5,7 @@
 This plugin allows you to control your Samsung TV with HomeKit and Siri.
 
 _________________________________________
-#### Creating and maintaining Homebridge plugins consume a lot of time and effort, if you would like to share your appreciation, feel free to "Star" or donate. 
+#### Creating and maintaining Homebridge plugins consume a lot of time and effort, if you would like to share your appreciation, feel free to "Star" or donate.
 
 <a target="blank" href="https://www.paypal.me/nitaybz"><img src="https://img.shields.io/badge/Donate-PayPal-blue.svg"/></a>
 <a target="blank" href="https://blockchain.info/payment_request?address=18uuUZ5GaMFoRH5TrQFJATQgqrpXCtqZRQ"><img src="https://img.shields.io/badge/Donate-Bitcoin-green.svg"/></a>
@@ -61,6 +61,15 @@ _________________________________________
         "command": "KEY_VOLUP",
         "repeat": 5,
         "delay": 500
+    },
+    {
+        "accessory": "SamsungTV",
+        "name": "Multiple Commands",
+        "ip": "10.0.0.0",
+        "mac": "12:34:45:AB:CD:EF",
+        "type": "custom",
+        "command": ["KEY_UP", "KEY_DOWN", "KEY_LEFT", "KEY_RIGHT"],
+        "delay": 500
     }
 ]
 ```
@@ -74,8 +83,8 @@ _________________________________________
 | `mac`               | the mac address of your Samsung TV (Required for wake on lan)  |     ✓    |      -    |
 | `type`              | type of accessory - power / mute / channel / custom            |          |  "power"  |
 | `channel`           | channel on TV you want to switch to (only 1 channel per switch)| only for type "channel" |    -    |
-| `command`           | custom command to send to TV (List of commands at the bottom)  | only for type "custom"  |    -    |
-| `repeat`            | number of times to repeat the "custom" command (only for custom)|          |      1    |
+| `command`           | custom command to send to TV (List of commands at the bottom). You can also send multiple commands as an array | only for type "custom"  |    -    |
+| `repeat`            | number of times to repeat the "custom" command (only for custom). Not available for multiple commands |          |      1    |
 | `delay`             | delay between "custom" commands repeat (im miliseconds)         |          |     500   |
 
 
