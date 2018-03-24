@@ -83,8 +83,8 @@ _________________________________________
 | `mac`               | the mac address of your Samsung TV (Required for wake on lan)  |     ✓    |      -    |
 | `type`              | type of accessory - power / mute / channel / custom            |          |  "power"  |
 | `channel`           | channel on TV you want to switch to (only 1 channel per switch)| only for type "channel" |    -    |
-| `command`           | custom command to send to TV (List of commands at the bottom). You can also send multiple commands as an array | only for type "custom"  |    -    |
-| `repeat`            | number of times to repeat the "custom" command (only for custom). Not available for multiple commands |          |      1    |
+| `command`           | custom command to send to TV (List of commands at the bottom).  You can also send multiple commands as an array | only for type "custom"  |    -    |
+| `repeat`            | number of times to repeat the "custom" command (only for custom) |          |      1    |
 | `delay`             | delay between "custom" commands repeat (im miliseconds)         |          |     500   |
 
 
@@ -93,9 +93,11 @@ _________________________________________
 
 2. All switches (other than type "power") are stateless switches, which means that there is no OFF command. turning ON the switch will send the command and then turn the switch OFF.
 
-3. Don't expect all "custom" commands to work with your TV. In fact, most of them are not working for me, but I found some of them are very usefull. I guess it's best for each of you to test some commands with your own TV to see what works.
+3. Repeat option is not available when setting "command" as an array to run multiple commands.
 
-4. The Channel type was done according to my own TV model (KU7000) - send "Channel Up" command to switch to TV, channel numbers, and "Enter" command (3 digits max). The commands are sent one after the other with a reasonable delay, if you're experiencing any mailfunctions I would suggest to start with playing with the custom accessory and see what's working for you, than you can open an issue with the problem and the way you think your tv should act (if you got it from testing the custom switch)
+4. Don't expect all "custom" commands to work with your TV. In fact, most of them are not working for me, but I found some of them are very usefull. I guess it's best for each of you to test some commands with your own TV to see what works.
+
+5. The Channel type was done according to my own TV model (KU7000) - send "Channel Up" command to switch to TV, channel numbers, and "Enter" command (3 digits max). The commands are sent one after the other with a reasonable delay, if you're experiencing any mailfunctions I would suggest to start with playing with the custom accessory and see what's working for you, than you can open an issue with the problem and the way you think your tv should act (if you got it from testing the custom switch)
 
 ## Commands List
 ```
