@@ -1,15 +1,15 @@
 {
-	"bridge": {
-		"name": "Homebridge",
-		"username": "CD:21:3D:E3:CE:38",
-		"port": 51826,
-		"pin": "031-45-154"
-	},
+    "bridge": {
+        "name": "Homebridge",
+        "username": "CD:21:3D:E3:CE:38",
+        "port": 51826,
+        "pin": "031-45-154"
+    },
 
-	"description": "config sample",
+    "description": "config sample",
 
-	"accessories": [
-		{
+    "accessories": [
+        {
             "accessory": "SamsungTV",
             "name": "Living Room TV",
             "ip": "10.0.0.0",
@@ -46,8 +46,17 @@
             "mac": "12:34:45:AB:CD:EF",
             "type": "custom",
             "command": "KEY_VOLUP",
-	    "repeat": 5,
-	    "delay": 500
+            "repeat": 5,
+            "delay": 500
+        },
+        {
+            "accessory": "SamsungTV",
+            "name": "Multiple Commands",
+            "ip": "10.0.0.0",
+            "mac": "12:34:45:AB:CD:EF",
+            "type": "custom",
+            "command": ["KEY_UP", "KEY_DOWN", "KEY_LEFT", "KEY_RIGHT"],
+            "delay": 500
         }
-	]
+    ]
 }

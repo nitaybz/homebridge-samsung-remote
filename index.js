@@ -27,12 +27,12 @@ function SamsungTV(log, config) {
 
     if (!config.ip) throw new Error("TV IP address is required");
     if (!config.mac) throw new Error("TV MAC address is required");
-    
+
     this.TV = new SamsungTvRemote({
         ip: this.ip
     });
 
-    
+
     this.timer_off = null;
 
     this.service = new Service.Switch(this.name);
@@ -91,7 +91,7 @@ SamsungTV.prototype.getServices = function() {
 
 
 /***********************************************************************************
-***********************************   POWER   ************************************** 
+***********************************   POWER   **************************************
 /***********************************************************************************/
 
 SamsungTV.prototype._getOn = function(callback) {
@@ -186,7 +186,7 @@ SamsungTV.prototype._setOn = function(on, callback) {
 
 
 /***********************************************************************************
-************************************   MUTE   ************************************** 
+************************************   MUTE   **************************************
 /***********************************************************************************/
 SamsungTV.prototype._getMute = function(callback) {
   callback(null, false);
@@ -213,13 +213,13 @@ SamsungTV.prototype._setMute = function(mute, callback) {
 
 
 /***********************************************************************************
-************************************   CHANNEL   ************************************ 
+************************************   CHANNEL   ************************************
 /***********************************************************************************/
 
 SamsungTV.prototype._getChannel = function(callback) {
     callback(null, false);
   };
-  
+
 SamsungTV.prototype._setChannel = function(state, callback) {
     var accessory = this;
     var channel = accessory.channel.toString()
@@ -252,40 +252,57 @@ SamsungTV.prototype._setChannel = function(state, callback) {
 };
 
 /***********************************************************************************
-************************************   CUSTOM   *********************************** 
+************************************   CUSTOM   ***********************************
 /***********************************************************************************/
 
 SamsungTV.prototype._getCustom = function(callback) {
     callback(null, false);
   };
-  
+
 SamsungTV.prototype._setCustom = function(state, callback) {
+    var counter = 1;
     var accessory = this;
 
-    accessory.log('Sending ' + accessory.command + ' command to TV');
+    accessory.log('Sending ' + (Array.isArray(accessory.command) ? accessory.command.join(', ') : accessory.command) + ' command(s) to TV');
     accessory.TV.isTvAlive(function(success) {
         if (!success) {
             accessory.log('TV is OFF');
-            
+
             callback();
         } else {
-            accessory.TV.sendKey(accessory.command)
-            accessory.log(accessory.command + ' command sent');
-            callback();
-            var counter = 1;
-            var repeatSend = setInterval(function(){
-                if (counter < accessory.repeat){
-                    accessory.TV.sendKey(accessory.command)
-                    counter++
-                } else {
-                    clearInterval(repeatSend)
-                }
-            }, accessory.delay)
+            // Command as array
+            if (Array.isArray(accessory.command)) {
+                accessory.TV.sendKey(accessory.command[0])
+                accessory.log(accessory.command[0] + ' command sent');
+                callback();
+
+                var repeatSend = setInterval(function(){
+                    if (counter < accessory.command.length){
+                        accessory.TV.sendKey(accessory.command[counter])
+                        accessory.log(accessory.command[counter] + ' command sent');
+                        counter++
+                    } else {
+                        clearInterval(repeatSend)
+                    }
+                }, accessory.delay)
+            // Command as string
+            } else {
+                accessory.TV.sendKey(accessory.command)
+                accessory.log(accessory.command + ' command sent');
+                callback();
+
+                var repeatSend = setInterval(function(){
+                    if (counter < accessory.repeat){
+                        accessory.TV.sendKey(accessory.command)
+                        counter++
+                    } else {
+                        clearInterval(repeatSend)
+                    }
+                }, accessory.delay)
+            }
         }
     });
     setTimeout(function(){
         accessory.service.getCharacteristic(Characteristic.On).updateValue(false)
     }, 1000)
 };
-
-
