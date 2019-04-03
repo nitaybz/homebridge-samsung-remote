@@ -5,12 +5,12 @@
 This plugin allows you to control your Samsung TV with HomeKit and Siri.
 
 _________________________________________
-#### Creating and maintaining Homebridge plugins consume a lot of time and effort, if you would like to share your appreciation, feel free to "Star" or donate.
+# This plugin is NOT supported anymore
+There is a a better plugin these days called [Homebridge-Samsung-Tizen](https://github.com/tavicu/homebridge-samsung-tizen/), it is updated with the recent updates to security that should support the new firmware and fix the issues you experience.
 
-<a target="blank" href="https://www.paypal.me/nitaybz"><img src="https://img.shields.io/badge/Donate-PayPal-blue.svg"/></a>
-<a target="blank" href="https://blockchain.info/payment_request?address=18uuUZ5GaMFoRH5TrQFJATQgqrpXCtqZRQ"><img src="https://img.shields.io/badge/Donate-Bitcoin-green.svg"/></a>
+The author @tavicu is also working on an upgrade to the plugin to support the new HomeKit TV accessory. you can read about it and install the beta version [HERE](https://github.com/tavicu/homebridge-samsung-tizen/pull/67)
 
-[Click here](https://github.com/nitaybz?utf8=%E2%9C%93&tab=repositories&q=homebridge) to review more of my plugins.
+feel free to fork or contribute in any way.
 _________________________________________
 
 ## Installation
